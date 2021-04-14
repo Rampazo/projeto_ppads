@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-    <title>Login</title>
+    <title>Registrar-se</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -15,27 +15,13 @@
 
     <script>
 
-        function send_login() {
-            data = {
-                "username": document.getElementById("username").value,
-                "password": document.getElementById("password").value
-            };
-
-            $.post("/auth", JSON.stringify(data), function(data, status){
-                alert("Login efetuado com sucesso!")
-                $(location).attr('href', 'home')
-            })
-            .fail(function() {
-               alert("Usuário ou senha inválido");
-            });
-        }
 
     </script>
 </head>
 <body>
     <div class="container">
         <div class="row justify-content-center bg-info text-white rounded" style="padding: 10px;">
-            <h1>Login</h1>
+            <h1>Registrar-se</h1>
         </div>
         <div class="row pt-3 justify-content-center">
             <div class="col-9">
@@ -46,13 +32,6 @@
                         </div>
                         <div class="m-2">
                           <input type="password" id="password" name="password" placeholder="Password">
-                        </div>
-                        <button type="submit" class="btn btn-primary" onclick=send_login()>Login</button>
-                        <a href=""><span>Esqueceu sua senha?</span></a>
-                        <br>
-                        <br>
-                        <div>
-                            <a href=""><span>Registre-se</span></a>
                         </div>
                     </div>
                 </div>
