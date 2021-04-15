@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <title>Registrar-se</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="{{ url_for('source', path='css/bootstrap.min.css') }}"/>
+
+    <style>
+      .container {
+        padding: 5%;
+      }
+      .tabela{
+        display: flex;
+        justify-content: space-between;
+      }
+      .m-2{
+        margin: 2px;
+      }
+      .botao{
+        display: flex;
+        justify-content: center;
+        margin: 10px;
+      }
+    </style>
+
+    <script>
+
+      function send_account() {
+          data = {
+              "name": document.getElementById("name").value,
+              "username": document.getElementById("username").value,
+              "password": document.getElementById("password").value,
+              "birth_date": document.getElementById("birth_date").value,
+              "city": document.getElementById("city").value,
+              "state": document.getElementById("state").value
+          };
+
+          $.post("/user/create", JSON.stringify(data), function(data, status){
+              alert("Registrado com sucesso!");
+              $(location).attr('href', '/login');
+          })
+          .fail(function() {
+             alert("Usuário ou senha inválido");
+          });
+      }
+
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row justify-content-center bg-info text-white rounded" style="padding: 10px;">
+        <h1>Registrar-se</h1>
+      </div>
+      <form>
+        <label for="name">Nome Completo:</label><br>
+        <input type="text" id="name" name="name"><br>
+
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br>
+
+        <label for="password">Senha:</label><br>
+        <input type="password" id="password" name="password"><br>
+
+        <label for="birth_date">Data de Nascimento:</label><br>
+        <input type="date" id="birth_date" name="birth_date"><br>
+
+        <label for="city">Cidade:</label><br>
+        <input type="text" id="city" name="city"><br>
+
+        <label for="state">Estado:</label><br>
+        <input type="text" id="state" name="state"><br>
+
+        <div class="botao">
+          <button type="submit" class="btn btn-primary" onclick=send_account()>Registrar</button>
+        </div>
+      </form>
+    </div>
+    <script src="{{ url_for('source', path='js/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ url_for('source', path='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('source', path='js/bootstrap.min.js') }}"></script>
+  </body>
+</html>

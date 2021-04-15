@@ -1,18 +1,33 @@
+#!/usr/bin/python3
+# coding: utf-8
+
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from controller.controller import router
-from controller.template_controller import router_template
+from modules.Feed.controller.controller import router_feed
+from modules.Login.controller.controller import router_login
+from modules.User.controller.controller import router_user
 
-app = FastAPI(title='API Recomenda',
-              version='1.0.0',)
+origins = [
+    "http://localhost",
+]
 
-app.mount("/src", StaticFiles(directory="./templates/src"), name="source")
-
-app.include_router(
-    router, prefix=""
+app = FastAPI(
+    title='API Recomenda',
+    version='1.0.0'
 )
 
-app.include_router(
-    router_template, prefix=""
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
+app.mount("/src", StaticFiles(directory="./static/src"), name="source")
+
+app.include_router(router_feed, prefix="/feed")
+app.include_router(router_login, prefix="/login")
+app.include_router(router_user, prefix="/user")
