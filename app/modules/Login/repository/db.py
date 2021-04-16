@@ -1,24 +1,30 @@
-fake_db = {
-    '1': {
-        'name': 'John',
-        'surname': 'Doe',
-        'email': 'john@doe.com',
-        'password': '1'
-    },
+#!/usr/bin/python3
+# coding: utf-8
 
-    'sandra@johnson.com': {
-        'name': 'Sandra',
-        'surname': 'Johnson',
-        'email': 'sandra@johnson.com',
-        'password': 'sandra1243'
-    }
-}
+import psycopg2
+
+
+PGHOST = 'localhost'
+PGDATABASE = 'db_ppads'
+PGUSER = 'postgres'
+PGPASSWORD = 'admin'
 
 
 def query_user(data_login):
-    user = fake_db.get(data_login.username)
-    if not user:
-        return None
-    if data_login.password != user.get('password'):
-        return None
-    return data_login
+    conn_string = f'host={PGHOST} port=5432 dbname={PGDATABASE} user={PGUSER} password={PGPASSWORD}'
+
+    conn = psycopg2.connect(conn_string)
+
+    cursor = conn.cursor()
+
+    query = f"""SELECT * FROM users WHERE username = '{data_login.username}' AND password = '{data_login.password}'"""
+
+    cursor.execute(query)
+    # print(cursor.statusmessage)
+    # conn.commit()
+
+    d = cursor.fetchone()
+
+    cursor.close()
+
+    return d

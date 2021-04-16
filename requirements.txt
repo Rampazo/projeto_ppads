@@ -4,3 +4,4 @@ python-multipart
 jinja2
 aiofiles
 pydantic~=1.8.1
+psycopg2
